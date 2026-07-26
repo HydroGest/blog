@@ -2,6 +2,7 @@
 date: '2026-07-26T18:57:08+08:00'
 draft: false
 title: '最速 CodeX CLI + DeepSeek 安装方法'
+tag: ["教程", "工具", "AI", "CodeX"]
 ---
 
 CodeX 是程序员的有力杀手，有了它哪怕你是~美少女~不懂编程的萌新，也能高效完成复杂项目的开发。CodeX CLI 是 CodeX 的命令行版本，更加适合新手，操作简单。本文将分享使用 DeepSeek API 的 CodeX 安装指南。学会了这个以后可以自己换成其他模型的 API。
