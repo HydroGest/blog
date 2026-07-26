@@ -273,20 +273,6 @@ hr {
 
 .katex-display {
     margin: 1.2em 0;
-    overflow-x: auto;
-    overflow-y: hidden;
     padding: 0.5em 0;
-    scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
-}
-
-.katex-display::-webkit-scrollbar {
-    height: 3px;
-}
-.katex-display::-webkit-scrollbar-track {
-    background: transparent;
-}
-.katex-display::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: 2px;
+    overflow-x: visible;
 }
