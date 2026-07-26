@@ -1,4 +1,4 @@
-baseURL: "https://blog.yurikale.top"
+baseURL: "https://blog.yurikale.com"
 title: "羽衣甘蓝的博客"
 theme: PaperMod
 paginate: 10
@@ -7,7 +7,7 @@ enableRobotsTXT: true
 languages:
   zh:
     contentDir: content
-    languageName: "中文"
+    label: "中文"
     weight: 1
 
 menu:
@@ -16,6 +16,10 @@ menu:
       name: 归档
       url: /archives
       weight: 10
+    - identifier: math
+      name: 数学笔记
+      url: /math
+      weight: 15
     - identifier: search
       name: 搜索
       url: /search
@@ -25,11 +29,25 @@ menu:
       url: /tags
       weight: 30
 
+markup:
+  goldmark:
+    extensions:
+      passthrough:
+        enable: true
+        delimiters:
+          block:
+            - - '$$'
+              - '$$'
+          inline:
+            - - '$'
+              - '$'
+
 params:
   env: production
   description: ""
   defaultTheme: auto
   disableThemeToggle: false
+  mainSections: ["post", "math"]
   ShowReadingTime: true
   ShowShareButtons: false
   ShowPostNavLinks: true
@@ -40,6 +58,7 @@ params:
   ShowAllPagesInArchive: true
   ShowPageNaviButtons: true
   ShowToc: true
+  TocOpen: true
 
   homeInfoParams:
     Title: "有朋从远方来，不亦乐乎？"
@@ -51,5 +70,3 @@ params:
       url: "https://github.com/HydroGest"
     - name: bilibili
       url: "https://space.bilibili.com/436359880"
-    - name: zhihu
-      url: "https://www.zhihu.com/people/hydrogest"

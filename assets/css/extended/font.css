@@ -1,10 +1,120 @@
-/* 全站使用 Noto Serif SC（思源宋体），替代默认宋体 */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&display=swap');
+/* ===== 书卷风格全局美化 ===== */
+
+/* 思源宋体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
 
 :root {
-    --font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
+    --font-family: 'Noto Serif SC', 'Source Han Serif SC', 'STSong', serif;
+    --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 }
 
 body {
     font-family: var(--font-family) !important;
+}
+
+/* 正文阅读优化 */
+.post-content {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-ideograph;
+}
+
+.post-content p {
+    margin: 1.2em 0;
+}
+
+/* 标题 — 略重、有书卷感 */
+.post-title {
+    font-weight: 600 !important;
+    letter-spacing: 0.02em;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4 {
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* 侧边目录 — 更像古籍边注 */
+@media (min-width: 1400px) {
+    .post-single > .toc {
+        position: fixed;
+        top: calc(var(--header-height) + var(--gap));
+        right: 50px;
+        width: 220px;
+        max-height: calc(100vh - var(--header-height) - var(--gap) * 2);
+        overflow-y: auto;
+        display: block !important;
+        border: none;
+        border-left: 2px solid var(--border);
+        padding: 0 0 0 1.25rem;
+        background: transparent;
+        font-family: var(--font-family);
+    }
+
+    .post-single > .toc summary {
+        display: none;
+    }
+
+    .post-single > .toc .inner {
+        padding: 0;
+    }
+
+    .post-single > .toc ul {
+        list-style: none;
+        padding-left: 0;
+        margin: 0;
+    }
+
+    .post-single > .toc ul ul {
+        padding-left: 0.85rem;
+    }
+
+    .post-single > .toc li {
+        margin: 0.25em 0;
+    }
+
+    .post-single > .toc a {
+        font-size: 0.82rem;
+        line-height: 1.7;
+        color: var(--secondary);
+        text-decoration: none;
+        display: block;
+        padding: 2px 0;
+        border: none;
+        transition: color 0.15s;
+    }
+
+    .post-single > .toc a:hover {
+        color: var(--primary);
+    }
+}
+
+/* 引用块 — 仿古籍眉批 */
+blockquote {
+    border-left: 3px solid var(--tertiary);
+    margin: 1.5em 0;
+    padding: 0.5em 1em;
+    font-style: normal;
+    color: var(--secondary);
+    background: transparent;
+}
+
+/* 行内代码 — 温柔不扎眼 */
+code {
+    font-family: var(--font-family-mono);
+    font-size: 0.85em;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    background: var(--code-bg);
+}
+
+/* 分隔线 */
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2em 0;
 }
