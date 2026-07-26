@@ -20,6 +20,10 @@ menu:
       name: 数学笔记
       url: /math
       weight: 15
+    - identifier: gallery
+      name: 随手拍
+      url: /gallery
+      weight: 17
     - identifier: search
       name: 搜索
       url: /search
@@ -63,7 +67,10 @@ params:
   homeInfoParams:
     Title: "有朋从远方来，不亦乐乎？"
     Content: >
-      我是羽衣甘蓝_Yurikale，你也可以叫我 Markchai。这里是我的个人博客，记录一些生活、学习和工作中的点滴。
+      余，准大一之生也，然志于编程久矣。自束发弄码，
+      涉猎前后端、系统、网络诸域，虽未深至，亦颇有心得。
+      今将入大学之堂，仍以开发者自居，欲精进而已。
+      此博客者，录所学，记所思，亦以交天下同好也。
 
   socialIcons:
     - name: github

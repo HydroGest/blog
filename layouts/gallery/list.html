@@ -1,0 +1,22 @@
+{{ define "main" }}
+<header class="page-header">
+    <h1>{{ .Title }}</h1>
+    {{ with .Description }}
+    <div class="post-description">{{ . }}</div>
+    {{ end }}
+</header>
+
+<div class="gallery-grid">
+    {{ $dir := "static/images/gallery" }}
+    {{ if (fileExists $dir) }}
+        {{ range readDir $dir }}
+            {{ $ext := lower (path.Ext .Name) }}
+            {{ if or (eq $ext ".jpg") (eq $ext ".jpeg") (eq $ext ".png") (eq $ext ".webp") (eq $ext ".gif") }}
+                <div class="gallery-item">
+                    <img src="/images/gallery/{{ .Name }}" alt="{{ .Name }}" loading="lazy">
+                </div>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+</div>
+{{ end }}
