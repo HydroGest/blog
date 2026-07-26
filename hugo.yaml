@@ -1,0 +1,50 @@
+baseURL: "https://blog.yurikale.com"
+title: "羽衣甘蓝的博客"
+theme: PaperMod
+paginate: 10
+enableRobotsTXT: true
+
+languages:
+  zh:
+    contentDir: content
+    languageName: "中文"
+    weight: 1
+
+menu:
+  main:
+    - identifier: archives
+      name: 归档
+      url: /archives
+      weight: 10
+    - identifier: search
+      name: 搜索
+      url: /search
+      weight: 20
+    - identifier: tags
+      name: 标签
+      url: /tags
+      weight: 30
+
+params:
+  env: production
+  description: ""
+  defaultTheme: auto
+  disableThemeToggle: false
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: false
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesInArchive: true
+  ShowPageNaviButtons: true
+  ShowToc: true
+
+  homeInfoParams:
+    Title: "你好"
+    Content: ""
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/HydroGest"
