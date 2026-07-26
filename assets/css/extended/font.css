@@ -8,14 +8,22 @@
     --font-family-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
 }
 
-body {
-    font-family: var(--font-family) !important;
+html {
+    scroll-behavior: smooth;
 }
 
-/* 正文阅读优化 */
+body {
+    font-family: var(--font-family) !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
+
+/* ===== 正文阅读优化 ===== */
 .post-content {
-    font-size: 1.05rem;
-    line-height: 1.9;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 2;
     text-align: justify;
     text-justify: inter-ideograph;
 }
@@ -24,9 +32,9 @@ body {
     margin: 1.2em 0;
 }
 
-/* 标题 — 略重、有书卷感 */
+/* 标题 */
 .post-title {
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     letter-spacing: 0.02em;
 }
 
@@ -34,11 +42,96 @@ body {
 .post-content h2,
 .post-content h3,
 .post-content h4 {
-    font-weight: 600;
+    font-weight: 700;
     letter-spacing: 0.02em;
 }
 
-/* 侧边目录 — 更像古籍边注 */
+/* 列表 — 宽松间距 */
+.post-content ul,
+.post-content ol {
+    margin: 0.8em 0;
+    padding-left: 1.5em;
+}
+
+.post-content li {
+    margin: 0.3em 0;
+}
+
+/* ===== 图片 ===== */
+.post-content img {
+    border-radius: 6px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    margin: 1.5em auto;
+    display: block;
+}
+
+/* ===== 表格 ===== */
+.post-content table {
+    font-size: 0.95rem;
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5em 0;
+}
+
+.post-content th,
+.post-content td {
+    padding: 0.6em 1em;
+    border: 1px solid var(--border);
+    text-align: left;
+}
+
+.post-content th {
+    font-weight: 600;
+    background: var(--code-bg);
+}
+
+/* ===== 代码 ===== */
+code {
+    font-family: var(--font-family-mono);
+    font-size: 0.85em;
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+    background: var(--code-bg);
+}
+
+.post-content pre {
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+}
+
+/* ===== 引用 ===== */
+blockquote {
+    border-left: 3px solid var(--tertiary);
+    margin: 1.5em 0;
+    padding: 0.5em 1em;
+    font-style: normal;
+    color: var(--secondary);
+    background: transparent;
+}
+
+/* ===== 分隔线 ===== */
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5em 0;
+}
+
+/* ===== 阅读进度条 ===== */
+.main::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary), var(--tertiary));
+    z-index: 100;
+    opacity: 0.3;
+}
+
+/* ===== 侧边目录 ===== */
 @media (min-width: 1400px) {
     .post-single > .toc {
         position: fixed;
@@ -91,30 +184,46 @@ body {
     .post-single > .toc a:hover {
         color: var(--primary);
     }
+
+    .post-single > .toc::-webkit-scrollbar {
+        width: 3px;
+    }
+    .post-single > .toc::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 2px;
+    }
 }
 
-/* 引用块 — 仿古籍眉批 */
-blockquote {
-    border-left: 3px solid var(--tertiary);
-    margin: 1.5em 0;
-    padding: 0.5em 1em;
-    font-style: normal;
-    color: var(--secondary);
-    background: transparent;
+/* ===== 文章卡片（列表页） ===== */
+.post-entry {
+    border-radius: 6px;
+    transition: box-shadow 0.2s, transform 0.15s;
 }
 
-/* 行内代码 — 温柔不扎眼 */
-code {
-    font-family: var(--font-family-mono);
-    font-size: 0.85em;
-    padding: 0.15em 0.4em;
-    border-radius: 3px;
-    background: var(--code-bg);
+.post-entry:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    transform: translateY(-1px);
 }
 
-/* 分隔线 */
-hr {
-    border: none;
-    border-top: 1px solid var(--border);
-    margin: 2em 0;
+/* ===== 导航栏 ===== */
+.header {
+    border-bottom: 1px solid var(--border);
+}
+
+/* ===== 选中文字 ===== */
+::selection {
+    background: rgba(180, 160, 140, 0.25);
+    color: inherit;
+}
+
+/* ===== 数学公式 ===== */
+.katex {
+    font-size: 1.05em;
+}
+
+.katex-display {
+    margin: 1.2em 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.5em 0;
 }
