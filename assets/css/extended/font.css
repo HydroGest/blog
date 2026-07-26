@@ -1,0 +1,10 @@
+/* 全站使用 Noto Serif SC（思源宋体），替代默认宋体 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&display=swap');
+
+:root {
+    --font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
+}
+
+body {
+    font-family: var(--font-family) !important;
+}

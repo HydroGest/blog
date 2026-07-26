@@ -42,9 +42,14 @@ params:
   ShowToc: true
 
   homeInfoParams:
-    Title: "你好"
-    Content: ""
+    Title: "有朋从远方来，不亦乐乎？"
+    Content: >
+      我是羽衣甘蓝_Yurikale，你也可以叫我 Markchai。这里是我的个人博客，记录一些生活、学习和工作中的点滴。
 
   socialIcons:
     - name: github
       url: "https://github.com/HydroGest"
+    - name: bilibili
+      url: "https://space.bilibili.com/436359880"
+    - name: zhihu
+      url: "https://www.zhihu.com/people/hydrogest"
