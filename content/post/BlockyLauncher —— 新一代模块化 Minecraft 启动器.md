@@ -4,6 +4,8 @@ title: "BlockyLauncher —— 新一代模块化 Minecraft 启动器"
 tags: ["Minecraft", "启动器", "C#", ".NET", "项目"]
 ---
 
+![](/images/屏幕截图-2026-07-27-183955.png)
+
 Minecraft 启动器这块向来不缺选择：官启、HMCL、PCL、BakaXL，甚至美西螈启动器……那为什么还要自己写一个？
 
 原因很简单——**我想要一个真正模块化的启动器**。不是那种"支持插件"但核心代码拧成一团的，而是从底层架构就允许每个功能被独立替换、独立扩展的。~~另外我也想用 .NET 10 + Avalonia UI 写点真正能用的东西，而不是整天写 CRUD（笑）。~~
@@ -143,7 +145,6 @@ _launchStartedSub = _eventAggregator?.Subscribe<LaunchStartedEvent>(OnLaunchStar
 
 代码在 GitHub 目前还是 Private，敬请期待吧。
 
-![](/images/屏幕截图-2026-07-27-183955.png)
-![](/images屏幕截图-2026-07-27-184010.png)
+![](/images/屏幕截图-2026-07-27-184010.png)
 
 UI 不代表最终品质。
