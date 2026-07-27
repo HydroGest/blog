@@ -148,3 +148,8 @@ _launchStartedSub = _eventAggregator?.Subscribe<LaunchStartedEvent>(OnLaunchStar
 ![](/images/屏幕截图-2026-07-27-184010.png)
 
 UI 不代表最终品质。
+
+其他核心开发者：
+
+- [CodeZhangBorui](https://github.com/CodeZhangBorui)
+- [bcmRayCrazy-coder](https://github.com/bcmRayCrazy-coder)
