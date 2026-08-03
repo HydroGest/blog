@@ -20,6 +20,10 @@ menu:
       name: 数学笔记
       url: /math
       weight: 15
+    - identifier: huli_house
+      name: 梨窝
+      url: /huli_house
+      weight: 16
     - identifier: gallery
       name: 随手拍
       url: /gallery
