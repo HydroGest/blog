@@ -1,0 +1,42 @@
+{
+  "name": "blogcms",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "羽衣甘蓝博客管理工具 —— 产品级本地/远程管理后台（React + MUI + Express）",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "dev": "vite",
+    "dev:server": "node server/index.js",
+    "build": "tsc -b && vite build",
+    "start": "node server/index.js",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.0",
+    "@mui/material": "^6.1.0",
+    "express": "^4.21.0",
+    "multer": "^2.0.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sharp": "^0.33.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/multer": "^1.4.12",
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.0"
+  },
+  "allowScripts": {
+    "esbuild@0.21.5": true,
+    "sharp@0.33.5": true
+  }
+}

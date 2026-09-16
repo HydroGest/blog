@@ -1,0 +1,19 @@
+[Unit]
+Description=Blog CMS - 羽衣甘蓝博客管理工具
+Documentation=https://github.com/hydrogest/blog/blob/main/tools/README.md
+After=network-online.target tailscaled.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/yurikale/blog/tools
+ExecStart=/usr/bin/node server/index.js
+Restart=on-failure
+RestartSec=3
+# 绑定 0.0.0.0：通过 Tailscale（100.65.30.39:8099）或局域网访问
+# 认证由应用内 Bearer Token 负责（cat ~/blog/tools/.secret）
+Environment=HOST=0.0.0.0
+Environment=PORT=8099
+
+[Install]
+WantedBy=default.target

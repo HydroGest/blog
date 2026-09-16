@@ -1,0 +1,58 @@
+{
+  // ===== Front Matter CMS 配置（https://frontmatter.codes）=====
+  // 装好 Front Matter 扩展后：左侧出现内容面板，
+  // 可直接新建/编辑文章、管理 static/images 媒体库。
+  "frontMatter.framework.id": "hugo",
+  "frontMatter.content.publicFolder": "static/images",
+  "frontMatter.content.pageFolders": [
+    { "title": "文章 post", "path": "[[workspace]]/content/post" },
+    { "title": "数学笔记 math", "path": "[[workspace]]/content/math" },
+    { "title": "梨窝 huli_house", "path": "[[workspace]]/content/huli_house" },
+    { "title": "随手拍 gallery", "path": "[[workspace]]/content/gallery" }
+  ],
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "post",
+      "pageBundle": false,
+      "filePrefix": "post/",
+      "previewPath": "post",
+      "fields": [
+        { "title": "标题", "name": "title", "type": "string", "single": true },
+        { "title": "日期", "name": "date", "type": "datetime", "single": true },
+        { "title": "草稿", "name": "draft", "type": "boolean", "single": true },
+        { "title": "标签", "name": "tag", "type": "list", "single": true }
+      ]
+    },
+    {
+      "name": "math",
+      "pageBundle": false,
+      "filePrefix": "math/",
+      "previewPath": "math",
+      "fields": [
+        { "title": "标题", "name": "title", "type": "string", "single": true },
+        { "title": "日期", "name": "date", "type": "datetime", "single": true },
+        { "title": "草稿", "name": "draft", "type": "boolean", "single": true },
+        { "title": "标签", "name": "tags", "type": "list", "single": true }
+      ]
+    },
+    {
+      "name": "huli_house",
+      "pageBundle": false,
+      "filePrefix": "huli_house/",
+      "previewPath": "huli_house",
+      "fields": [
+        { "title": "标题", "name": "title", "type": "string", "single": true },
+        { "title": "日期", "name": "date", "type": "datetime", "single": true },
+        { "title": "作者", "name": "author", "type": "string", "single": true },
+        { "title": "标签", "name": "tags", "type": "list", "single": true }
+      ]
+    }
+  ],
+  "frontMatter.content.defaultFrontMatter": {
+    "draft": true,
+    "tags": []
+  },
+  // 媒体库：图片统一放 static/images，插入时自动生成 /images/... 引用
+  "frontMatter.media.folder": "static/images",
+  "frontMatter.media.publicPath": "/images"
+}

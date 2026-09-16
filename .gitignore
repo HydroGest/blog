@@ -1,3 +1,11 @@
 public/
 .hugo_build.lock
 resources/_gen/
+tools/logs/
+tools/node_modules/
+tools/dist/
+tools/.secret
+tools/tsconfig.tsbuildinfo
+
+# CMS 缩略图（可再生，不入库）
+*-thumb.webp
