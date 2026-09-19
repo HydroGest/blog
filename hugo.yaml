@@ -1,8 +1,11 @@
 baseURL: "https://blog.yurikale.top"
 title: "羽衣甘蓝的博客"
 theme: PaperMod
-paginate: 10
 enableRobotsTXT: true
+defaultContentLanguage: zh
+
+pagination:
+  pagerSize: 10
 
 languages:
   zh:
