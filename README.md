@@ -74,6 +74,8 @@ git push origin main      # 推送后 Actions 自动构建并部署到 Cloudflar
 ```
 
 > 写数学公式：行内 `$...$`，块级 `$$...$$`，KaTeX 已配好，无需额外设置。
+>
+> 写 Mermaid 图：正文用 ` ```mermaid ` 代码块。管理工具预览会实时渲染；保存时自动在 front matter 写入 `mermaid: true`，发布站会按需加载渲染脚本（`layouts/_partials/extend_head.html`），无需手动配置。
 
 ## 三、图片 / assets 管理约定
 

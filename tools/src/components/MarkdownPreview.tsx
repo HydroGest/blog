@@ -1,7 +1,8 @@
-// Markdown 轻量预览（安全转义后渲染，公式保持原样显示）
-import { useMemo } from "react";
+// Markdown 轻量预览（安全转义渲染 + Mermaid 图表懒加载渲染，公式保持原样显示）
+import { useEffect, useMemo, useRef } from "react";
 import Box from "@mui/material/Box";
-import { FONT_MONO } from "../theme";
+import { useTheme } from "@mui/material/styles";
+import { FONT_MONO, FONT_SANS } from "../theme";
 
 function esc(s: string): string {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string));
@@ -16,10 +17,17 @@ function inline(s: string): string {
     .replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
-function mdToHtml(src: string): string {
-  const lines = esc(src).split("\n");
+interface Parsed {
+  html: string;
+  mermaid: string[]; // 与 html 中 .mmd[data-mmd] 占位符一一对应
+}
+
+function mdToHtml(src: string): Parsed {
+  const rawLines = src.split("\n");
   const out: string[] = [];
+  const mermaid: string[] = [];
   let inCode = false;
+  let codeLang = "";
   const codeBuf: string[] = [];
   let inList = false;
   let para: string[] = [];
@@ -31,15 +39,28 @@ function mdToHtml(src: string): string {
     if (inList) { out.push("</ul>"); inList = false; }
   };
 
-  for (const raw of lines) {
+  for (let i = 0; i < rawLines.length; i++) {
+    const raw = rawLines[i];
     const l = raw.trimEnd();
     if (l.startsWith("```")) {
       flushPara(); flushList();
-      if (inCode) { out.push(`<pre><code>${codeBuf.join("\n")}</code></pre>`); codeBuf.length = 0; inCode = false; }
-      else inCode = true;
+      if (inCode) {
+        if (codeLang === "mermaid") {
+          mermaid.push(codeBuf.join("\n"));
+          out.push(`<div class="mmd" data-mmd="${mermaid.length - 1}"></div>`);
+        } else {
+          out.push(`<pre><code>${esc(codeBuf.join("\n"))}</code></pre>`);
+        }
+        codeBuf.length = 0;
+        inCode = false;
+        codeLang = "";
+      } else {
+        inCode = true;
+        codeLang = l.slice(3).trim();
+      }
       continue;
     }
-    if (inCode) { codeBuf.push(l); continue; }
+    if (inCode) { codeBuf.push(raw); continue; }
     if (/^\s*[-*] /.test(l)) {
       flushPara();
       if (!inList) { out.push("<ul>"); inList = true; }
@@ -55,14 +76,62 @@ function mdToHtml(src: string): string {
     para.push(inline(l));
   }
   flushPara(); flushList();
-  if (inCode) out.push(`<pre><code>${codeBuf.join("\n")}</code></pre>`);
-  return out.join("\n");
+  if (inCode) {
+    if (codeLang === "mermaid") {
+      mermaid.push(codeBuf.join("\n"));
+      out.push(`<div class="mmd" data-mmd="${mermaid.length - 1}"></div>`);
+    } else {
+      out.push(`<pre><code>${esc(codeBuf.join("\n"))}</code></pre>`);
+    }
+  }
+  return { html: out.join("\n"), mermaid };
 }
 
 export default function MarkdownPreview({ source, sx }: { source: string; sx?: object }) {
-  const html = useMemo(() => mdToHtml(source), [source]);
+  const theme = useTheme();
+  const mode = theme.palette.mode;
+  const { html, mermaid } = useMemo(() => mdToHtml(source), [source]);
+  const boxRef = useRef<HTMLDivElement>(null);
+  const renderSeq = useRef(0);
+
+  // 懒加载 mermaid：仅在预览含 ```mermaid 块时拉取对应 chunk，不影响主包体积
+  useEffect(() => {
+    if (mermaid.length === 0) return;
+    let cancelled = false;
+    const seq = ++renderSeq.current;
+    (async () => {
+      const mod = await import("mermaid");
+      const mmd = mod.default;
+      mmd.initialize({
+        startOnLoad: false,
+        securityLevel: "strict",
+        theme: mode === "dark" ? "dark" : "default",
+        fontFamily: FONT_SANS,
+        flowchart: { htmlLabels: true, curve: "basis" },
+      });
+      const root = boxRef.current;
+      if (!root || cancelled || seq !== renderSeq.current) return;
+      const slots = [...root.querySelectorAll<HTMLElement>(".mmd[data-mmd]")];
+      for (let i = 0; i < mermaid.length && i < slots.length; i++) {
+        if (cancelled || seq !== renderSeq.current) return;
+        const el = slots[i];
+        try {
+          const { svg } = await mmd.render(`mmd-${seq}-${i}`, mermaid[i]);
+          if (cancelled || seq !== renderSeq.current) return;
+          el.innerHTML = svg;
+          el.classList.add("mmd-rendered");
+        } catch (e) {
+          if (cancelled) return;
+          el.innerHTML = `<div class="mmd-error">⚠ Mermaid 渲染失败：${esc(String((e as Error).message))}</div>`;
+        }
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [mermaid, mode]);
+
   return (
     <Box
+      ref={boxRef}
       className="md-preview"
       sx={{
         fontFamily: FONT_MONO,
@@ -80,6 +149,15 @@ export default function MarkdownPreview({ source, sx }: { source: string; sx?: o
         "& hr": { border: "none", borderTop: "1px solid", borderColor: "divider", m: "1em 0" },
         "& ul": { m: "0.4em 0", pl: 2 },
         "& li": { m: "0.15em 0" },
+        // Mermaid 图表
+        "& .mmd": { m: "0.8em 0", textAlign: "center", overflowX: "auto" },
+        "& .mmd svg": { maxWidth: "100%", height: "auto" },
+        "& .mmd-error": {
+          textAlign: "left", p: 1, borderRadius: 2, fontSize: 12,
+          color: "error.main", bgcolor: (t) => (t.palette.mode === "dark" ? "#2a1a18" : "#fbeae8"),
+          border: "1px solid", borderColor: "error.main",
+          whiteSpace: "pre-wrap", wordBreak: "break-all",
+        },
         ...sx,
       }}
       dangerouslySetInnerHTML={{ __html: html }}

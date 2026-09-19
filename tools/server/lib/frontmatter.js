@@ -148,6 +148,9 @@ export function savePost(rel, meta, body) {
   for (const [k, v] of Object.entries(meta || {})) {
     if (v !== undefined && v !== null && v !== "" && !(Array.isArray(v) && v.length === 0)) clean[k] = v;
   }
+  // 自动标记 mermaid：正文含 ```mermaid 代码块时写入 front matter，发布站据此按需加载渲染脚本
+  if (body && /```\s*mermaid/i.test(body)) clean.mermaid = true;
+  else delete clean.mermaid;
   if (!clean.date) clean.date = nowISO();
   fs.writeFileSync(f, buildFrontMatter(clean) + (body || ""), "utf8");
   return rel;

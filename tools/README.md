@@ -50,7 +50,7 @@ systemctl --user status blogcms         # 查看状态 / 日志
 
 | 模块 | 说明 |
 |---|---|
-| 📝 文章管理 | 分区浏览（post/math/huli_house…）；状态筛选（全部/草稿/已发布）+ 搜索；front matter 可视化；Markdown 实时预览；脏状态提醒 + 字数统计；Ctrl+S 保存；**Ctrl+K 全局命令面板**（快速打开任意文章 / 执行动作） |
+| 📝 文章管理 | 分区浏览（post/math/huli_house…）；状态筛选（全部/草稿/已发布）+ 搜索；front matter 可视化；Markdown 实时预览（**Mermaid 图按需渲染，含图自动写 `mermaid: true`**）；脏状态提醒 + 字数统计；Ctrl+S 保存；**Ctrl+K 全局命令面板**（快速打开任意文章 / 执行动作） |
 | 🖼️ 图片上传 | 拖拽 / 点击 / Ctrl+V 粘贴；逐文件进度条；JPEG 自动压缩（质量 82、最长边 1920）、PNG 优化、WebP 压缩；自动存入 `static/images/posts/年-月/`；一键复制 / 插入文章 |
 | 🗂️ 媒体库 | 按目录筛选；网格浏览 + 灯箱；点击复制引用；删除二次确认 |
 | 🚀 预览与发布 | 一键启停 `hugo server -D`（http://127.0.0.1:1313）；一键 `git add -A && git commit && git push origin main` 触发 Cloudflare Pages 自动部署；实时日志 |
