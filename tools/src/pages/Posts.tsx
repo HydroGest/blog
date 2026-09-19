@@ -143,10 +143,16 @@ export default function Posts() {
     setSaving(true);
     try {
       const tagsArr = tags.split(/[,，]/).map((s) => s.trim()).filter(Boolean);
-      const meta: Record<string, unknown> = { date: fromLocalInput(date), title: title.trim(), draft };
+      // 合并原有 meta，保留未知字段（searchHidden / hiddenInRss / robotsNoIndex / _build 等）
+      const meta: Record<string, unknown> = { ...current.meta, date: fromLocalInput(date), title: title.trim(), draft };
+      delete meta.tag;
+      delete meta.tags;
       if (sectionRef.current === "post") meta.tag = tagsArr;
       else meta.tags = tagsArr;
-      if (sectionRef.current === "huli_house" && author.trim()) meta.author = author.trim();
+      if (sectionRef.current === "huli_house") {
+        if (author.trim()) meta.author = author.trim();
+        else delete meta.author;
+      }
       await api.save(current.path, meta, bodyRef.current);
       setJustSaved(true);
       setTimeout(() => setJustSaved(false), 1600);

@@ -32,6 +32,7 @@ export function fmtValue(v) {
   if (Array.isArray(v)) {
     return "[" + v.map((x) => `"${String(x).replace(/"/g, '\\"')}"`).join(", ") + "]";
   }
+  if (typeof v === "string" && v.startsWith("\n")) return v; // 多行嵌套块（如 _build）原样回写
   const s = String(v);
   return "'" + s.replace(/'/g, "''") + "'";
 }
@@ -40,11 +41,21 @@ export function parseFrontMatter(text) {
   const m = /^---\s*\n([\s\S]*?)\n---\s*\n?/.exec(text);
   if (!m) return { meta: {}, body: text };
   const meta = {};
-  for (const line of m[1].split("\n")) {
-    const i = line.indexOf(":");
-    if (i > 0) {
-      const k = line.slice(0, i).trim();
-      meta[k] = parseValue(line.slice(i + 1));
+  const lines = m[1].split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const ci = line.indexOf(":");
+    if (ci > 0) {
+      const k = line.slice(0, ci).trim();
+      const v = line.slice(ci + 1).trim();
+      if (v === "") {
+        // 值为空 → 可能是多行嵌套块（如 `_build:` + 缩进行），原样保留
+        const block = [];
+        while (i + 1 < lines.length && /^\s+\S/.test(lines[i + 1])) block.push(lines[++i]);
+        meta[k] = block.length ? "\n" + block.join("\n") : "";
+      } else {
+        meta[k] = parseValue(v);
+      }
     }
   }
   return { meta, body: text.slice(m[0].length) };
