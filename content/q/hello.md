@@ -7,7 +7,7 @@ disableShare: true
 searchHidden: true
 hiddenInRss: true
 robotsNoIndex: true
-_build: 
+build:
   list: never
 ---
 大家好，我是 Yurikale（羽衣甘蓝）。
