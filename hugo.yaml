@@ -27,6 +27,10 @@ menu:
       name: 随手拍
       url: /gallery
       weight: 17
+    - identifier: links
+      name: 友情链接
+      url: /links
+      weight: 18
     - identifier: search
       name: 搜索
       url: /search
@@ -79,5 +83,3 @@ params:
       url: "https://space.bilibili.com/436359880"
     - name: zhihu
       url: "https://www.zhihu.com/people/hydrogest"
-    - name: 友链
-      url: "http://meteorliu.zehao.asia:8090/"
