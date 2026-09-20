@@ -79,3 +79,5 @@ params:
       url: "https://space.bilibili.com/436359880"
     - name: zhihu
       url: "https://www.zhihu.com/people/hydrogest"
+    - name: 友链
+      url: "http://meteorliu.zehao.asia:8090/"
